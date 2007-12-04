@@ -23,7 +23,7 @@ Buildroot:	%{_tmppath}/%name-%{version}-%{release}-root
 URL:		http://www.rxvt.org/
 Obsoletes:	crxvt gbrxvt rxvt-CLE
 Provides:	crxvt gbrxvt rxvt-CLE
-BuildRequires:	XFree86-devel xpm-devel utempter-devel
+BuildRequires:	X11-devel xpm-devel utempter-devel
 Conflicts:	drakconf < 9.3-25mdk
 
 %package CJK
