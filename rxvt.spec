@@ -96,45 +96,63 @@ install -m 755 %{SOURCE1} $RPM_BUILD_ROOT/usr/bin
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/rxvt
 
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << "EOF" > $RPM_BUILD_ROOT%{_menudir}/rxvt
-?package(rxvt):\
-  needs="X11"\
-  section="Terminals"\
-  title="RXvt"\
-  longtitle="A version of the rxvt terminal with support for Traditional Chinese, Simplified Chinese, Japanese and Korean."\
-  command="/usr/bin/rxvt" \
-  icon="rxvt-CLE.png"
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt.desktop
+[Desktop Entry]
+Type=Application
+    
+Categories=Terminals  
+Name=RXvt  
+Comment=A version of the rxvt terminal with support for Traditional Chinese, Simplified Chinese, Japanese and Korean.  
+Exec=/usr/bin/rxvt  
+Icon=rxvt-CLE
 EOF
 
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/rxvt-CJK
-?package(rxvt-CJK):\
- needs=x11 section="Terminals" title="CRXvt (Big5)"\
-  longtitle="Traditional Chinese rxvt terminal"\
-  command="/usr/bin/crxvt -ls" \
-  icon="rxvt-CJK.png"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-C_tw.desktop
+[Desktop Entry]
+Type=Application
+Categories=Terminals
+Name=CRXvt (Big5)  
+Comment=Traditional Chinese rxvt terminal  
+Exec=/usr/bin/crxvt -ls  
+Icon=rxvt-CJK
+EOF
 
-?package(rxvt-CJK):\
-  needs=x11 section="Terminals" title="GBRXvt (GB2312)"\
-  longtitle="Simplified Chinese rxvt terminal"\
-  command="/usr/bin/gbrxvt -ls" \
-  icon="rxvt-CJK.png"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-C_ch.desktop
+[Desktop Entry]
+Type=Application
+Categories=Terminals
+Name=GBRXvt (GB2312)  
+Comment=Simplified Chinese rxvt terminal  
+Exec=/usr/bin/gbrxvt -ls  
+Icon=rxvt-CJK
+EOF
 
-?package(rxvt-CJK):\
-  needs=x11 section="Terminals" title="JRXvt (JIS)"\
-  longtitle="Japanese rxvt terminal"\
-  command="/usr/bin/jrxvt -ls" icon="rxvt-CJK.png"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-J.desktop
+[Desktop Entry]
+Type=Application
+Categories=Terminals
+Name=JRXvt (JIS)  
+Comment=Japanese rxvt terminal  
+Exec=/usr/bin/jrxvt -ls
+Icon=rxvt-CJK
+EOF
 
-?package(rxvt-CJK):\
-  needs=x11 section="Terminals" title="KRXvt (KSC5601)"\
-  longtitle="Korean rxvt terminal"\
-  command="/usr/bin/krxvt -ls" icon="rxvt-CJK.png"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-K.desktop
+[Desktop Entry]
+Type=Application
+Categories=Terminals
+Name=KRXvt (KSC5601)  
+Comment=Korean rxvt terminal  
+Exec=/usr/bin/krxvt -ls
+Icon=rxvt-CJK
 EOF
 
 # (fg) 20000929 New icons from ln
 mkdir -p $RPM_BUILD_ROOT/%{_iconsdir}/{large,mini}
 for i in CLE CJK; do
 install -m644 %{SOURCE3} $RPM_BUILD_ROOT/%{_miconsdir}/rxvt-$i.png
+
 install -m644 %{SOURCE4} $RPM_BUILD_ROOT/%{_iconsdir}/rxvt-$i.png
 install -m644 %{SOURCE5} $RPM_BUILD_ROOT/%{_liconsdir}/rxvt-$i.png
 done
@@ -169,7 +187,7 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/rxvt.sh
 %_mandir/man1/*
 #%config(missingok,noreplace) /etc/rxvt/rxvt-zh.menu
-%{_menudir}/rxvt
+%{_datadir}/applications/mandriva-rxvt.desktop
 %{_iconsdir}/rxvt-CLE.png
 %{_liconsdir}/rxvt-CLE.png
 %{_miconsdir}/rxvt-CLE.png
@@ -180,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/gbrxvt
 %_bindir/jrxvt
 %_bindir/krxvt
-%{_menudir}/rxvt-CJK
+%{_datadir}/applications/mandriva-rxvt-*.desktop
 %{_iconsdir}/rxvt-CJK.png
 %{_liconsdir}/rxvt-CJK.png
 %{_miconsdir}/rxvt-CJK.png
