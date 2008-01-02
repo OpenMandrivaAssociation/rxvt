@@ -19,6 +19,7 @@ Patch2:		rxvt-2.7.10-fonts.patch
 # IM fix from http://www.giga.it.okayama-u.ac.jp/~ishihara/opensource/:
 Patch3:		rxvt-2.7.10-xim-fix.patch 
 
+Buildroot:	%{_tmppath}/%name-%{version}-%{release}-root
 URL:		http://www.rxvt.org/
 Obsoletes:	crxvt gbrxvt rxvt-CLE
 Provides:	crxvt gbrxvt rxvt-CLE
