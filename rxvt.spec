@@ -159,21 +159,29 @@ install -m644 %{SOURCE5} $RPM_BUILD_ROOT/%{_liconsdir}/rxvt-$i.png
 done
 
 %post
+%if %mdkversion < 200900
 %{update_menus}
+%endif
 update-alternatives --install /usr/bin/xvt xvt /usr/bin/rxvt 20
 
 %postun
+%if %mdkversion < 200900
 %{clean_menus}
+%endif
 
 if [ "$1" = "0" ]; then
     update-alternatives --remove xvt /usr/bin/rxvt
 fi
 
+%if %mdkversion < 200900
 %post CJK
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun CJK
 %clean_menus
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
