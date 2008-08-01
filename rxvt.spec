@@ -19,6 +19,13 @@ Patch2:		rxvt-2.7.10-fonts.patch
 # IM fix from http://www.giga.it.okayama-u.ac.jp/~ishihara/opensource/:
 Patch3:		rxvt-2.7.10-xim-fix.patch 
 
+# from gentoo
+Patch4:		rxvt-2.7.10-asneeded.patch
+Patch5:		rxvt-2.7.10-azz4.diff
+Patch6:		rxvt-2.7.10-line-scroll.patch
+Patch7:		rxvt-2.7.10-rk.patch
+Patch8:		rxvt-2.7.10-CVE-2008-1142-DISPLAY.patch
+
 Buildroot:	%{_tmppath}/%name-%{version}-%{release}-root
 URL:		http://www.rxvt.org/
 Obsoletes:	crxvt gbrxvt rxvt-CLE
@@ -56,6 +63,12 @@ This package contains the CJK versions of rxvt.
 %patch2 -p1 -b .fonts
 %patch3 -p1 -b .im
 
+%patch4 -p1 -b .asneeded
+%patch5 -p1 -b .azz4
+%patch6 -p0 -b .line-scroll
+%patch7 -p1 -b .rk
+%patch8 -p1 -b .CVE-2008-1142
+
 %build
 # NeXT scrollbar is cool :)
 perl -pi -e s/-eten-/-\*-/g src/defaultfont.h
@@ -76,6 +89,7 @@ cp src/rxvt src/rxvt.bin
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %makeinstall_std
 mkdir -p $RPM_BUILD_ROOT/etc/X11/app-defaults
 touch src/rxvt
