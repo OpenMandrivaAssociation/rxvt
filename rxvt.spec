@@ -2,8 +2,8 @@ Summary:	A color VT102 terminal emulator for the X Window System
 Name:		rxvt
 Epoch:		3
 Version:	2.7.10
-Release: 	%mkrel 18
-License:	GPL
+Release: 	%mkrel 19
+License:	GPLv2
 Group:		Terminals
 
 Source:		ftp://ftp.rxvt.org/pub/rxvt/rxvt-%{version}.tar.bz2
@@ -74,7 +74,7 @@ This package contains the CJK versions of rxvt.
 perl -pi -e s/-eten-/-\*-/g src/defaultfont.h
 
 export CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -DUTEMPTER"  
-%configure --mandir=%_mandir \
+%configure2_5x --mandir=%_mandir \
 	--enable-xpm-background --enable-menubar \
 	--enable-utmp --enable-ttygid \
 	--enable-transparency --enable-next-scroll --enable-rxvt-scroll --enable-xterm-scroll \
@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/etc/X11/app-defaults
 touch src/rxvt
 for i in cjk bin;do
-   install -m755 src/rxvt.$i $RPM_BUILD_ROOT/usr/bin
+	install -m755 src/rxvt.$i $RPM_BUILD_ROOT/usr/bin
 done
 rm -f $RPM_BUILD_ROOT/usr/bin/rxvt
 rm -f $RPM_BUILD_ROOT/usr/bin/rxvt-%{version}
@@ -115,18 +115,17 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt.desktop
 [Desktop Entry]
 Type=Application
-    
-Categories=Terminals  
-Name=RXvt  
-Comment=A version of the rxvt terminal with support for Traditional Chinese, Simplified Chinese, Japanese and Korean.  
-Exec=/usr/bin/rxvt  
+Categories=X-MandrivaLinux-System-Terminals;TerminalEmulator;
+Name=RXvt
+Comment=A version of the rxvt terminal with support for Traditional Chinese, Simplified Chinese, Japanese and Korean.
+Exec=/usr/bin/rxvt
 Icon=rxvt-CLE
 EOF
 
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-C_tw.desktop
 [Desktop Entry]
 Type=Application
-Categories=Terminals
+Categories=X-MandrivaLinux-System-Terminals;TerminalEmulator;
 Name=CRXvt (Big5)  
 Comment=Traditional Chinese rxvt terminal  
 Exec=/usr/bin/crxvt -ls  
@@ -136,7 +135,7 @@ EOF
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-C_ch.desktop
 [Desktop Entry]
 Type=Application
-Categories=Terminals
+Categories=X-MandrivaLinux-System-Terminals;TerminalEmulator;
 Name=GBRXvt (GB2312)  
 Comment=Simplified Chinese rxvt terminal  
 Exec=/usr/bin/gbrxvt -ls  
@@ -146,7 +145,7 @@ EOF
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-J.desktop
 [Desktop Entry]
 Type=Application
-Categories=Terminals
+Categories=X-MandrivaLinux-System-Terminals;TerminalEmulator;
 Name=JRXvt (JIS)  
 Comment=Japanese rxvt terminal  
 Exec=/usr/bin/jrxvt -ls
@@ -156,7 +155,7 @@ EOF
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt-K.desktop
 [Desktop Entry]
 Type=Application
-Categories=Terminals
+Categories=X-MandrivaLinux-System-Terminals;TerminalEmulator;
 Name=KRXvt (KSC5601)  
 Comment=Korean rxvt terminal  
 Exec=/usr/bin/krxvt -ls
@@ -172,6 +171,8 @@ install -m644 %{SOURCE4} $RPM_BUILD_ROOT/%{_iconsdir}/rxvt-$i.png
 install -m644 %{SOURCE5} $RPM_BUILD_ROOT/%{_liconsdir}/rxvt-$i.png
 done
 
+chmod -x doc/menu/*
+
 %post
 %if %mdkversion < 200900
 %{update_menus}
@@ -184,7 +185,7 @@ update-alternatives --install /usr/bin/xvt xvt /usr/bin/rxvt 20
 %endif
 
 if [ "$1" = "0" ]; then
-    update-alternatives --remove xvt /usr/bin/rxvt
+	update-alternatives --remove xvt /usr/bin/rxvt
 fi
 
 %if %mdkversion < 200900
