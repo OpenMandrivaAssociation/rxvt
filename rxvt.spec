@@ -28,8 +28,10 @@ Patch8:		rxvt-2.7.10-CVE-2008-1142-DISPLAY.patch
 
 Buildroot:	%{_tmppath}/%name-%{version}-%{release}-root
 URL:		http://www.rxvt.org/
-Obsoletes:	crxvt gbrxvt rxvt-CLE
-Provides:	crxvt gbrxvt rxvt-CLE
+Obsoletes:	crxvt < %{version}-%{release}, gbrxvt < %{version}-%{release}
+Obsoletes:	rxvt-CLE < %{version}-%{release}
+Provides:	crxvt = %{version}-%{release}, gbrxvt = %{version}-%{release}
+Provides:	rxvt-CLE = %{version}-%{release}
 BuildRequires:	X11-devel xpm-devel utempter-devel lesstif-devel
 Conflicts:	drakconf < 9.3-25mdk
 
