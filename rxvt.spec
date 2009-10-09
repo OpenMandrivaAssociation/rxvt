@@ -2,7 +2,7 @@ Summary:	A color VT102 terminal emulator for the X Window System
 Name:		rxvt
 Epoch:		3
 Version:	2.7.10
-Release: 	%mkrel 20
+Release: 	%mkrel 21
 License:	GPLv2
 Group:		Terminals
 
@@ -33,6 +33,8 @@ Obsoletes:	rxvt-CLE <= 2.7.10
 Provides:	crxvt = %{version}-%{release}, gbrxvt = %{version}-%{release}
 Provides:	rxvt-CLE = %{version}-%{release}
 BuildRequires:	X11-devel xpm-devel utempter-devel lesstif-devel
+# X11 locales are required to build IM support
+BuildRequires:	libx11-common
 Conflicts:	drakconf < 9.3-25mdk
 
 %package CJK
