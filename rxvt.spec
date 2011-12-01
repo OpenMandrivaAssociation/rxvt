@@ -92,30 +92,30 @@ cp src/rxvt src/rxvt.cjk
 cp src/rxvt src/rxvt.bin
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %makeinstall_std
-mkdir -p $RPM_BUILD_ROOT/etc/X11/app-defaults
+mkdir -p %{buildroot}/etc/X11/app-defaults
 touch src/rxvt
 for i in cjk bin;do
-	install -m755 src/rxvt.$i $RPM_BUILD_ROOT/usr/bin
+	install -m755 src/rxvt.$i %{buildroot}/usr/bin
 done
-rm -f $RPM_BUILD_ROOT/usr/bin/rxvt
-rm -f $RPM_BUILD_ROOT/usr/bin/rxvt-%{version}
+rm -f %{buildroot}/usr/bin/rxvt
+rm -f %{buildroot}/usr/bin/rxvt-%{version}
 
-install -m 755 %{SOURCE1} $RPM_BUILD_ROOT/usr/bin
+install -m 755 %{SOURCE1} %{buildroot}/usr/bin
 
 # (fg) 20000925 Make the necessary links
-( cd $RPM_BUILD_ROOT/usr/bin;
+( cd %{buildroot}/usr/bin;
   for i in {gb,c,j,k}rxvt; do
 		ln rxvt.sh $i
   done
   ln -s rxvt.sh rxvt
 )
 
-mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/rxvt
+mkdir -p %{buildroot}/%{_sysconfdir}/rxvt
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+mkdir -p %{buildroot}%{_datadir}/applications/
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt.desktop
 [Desktop Entry]
 Type=Application
@@ -167,12 +167,12 @@ Icon=rxvt-CJK
 EOF
 
 # (fg) 20000929 New icons from ln
-mkdir -p $RPM_BUILD_ROOT/%{_iconsdir}/{large,mini}
+mkdir -p %{buildroot}/%{_iconsdir}/{large,mini}
 for i in CLE CJK; do
-install -m644 %{SOURCE3} $RPM_BUILD_ROOT/%{_miconsdir}/rxvt-$i.png
+install -m644 %{SOURCE3} %{buildroot}/%{_miconsdir}/rxvt-$i.png
 
-install -m644 %{SOURCE4} $RPM_BUILD_ROOT/%{_iconsdir}/rxvt-$i.png
-install -m644 %{SOURCE5} $RPM_BUILD_ROOT/%{_liconsdir}/rxvt-$i.png
+install -m644 %{SOURCE4} %{buildroot}/%{_iconsdir}/rxvt-$i.png
+install -m644 %{SOURCE5} %{buildroot}/%{_liconsdir}/rxvt-$i.png
 done
 
 chmod -x doc/menu/*
@@ -203,7 +203,7 @@ fi
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
