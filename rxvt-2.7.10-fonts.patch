@@ -1,0 +1,31 @@
+--- rxvt-2.7.10/src/defaultfont.h.fonts	2001-07-27 08:34:51.000000000 +0200
++++ rxvt-2.7.10/src/defaultfont.h	2003-05-28 14:12:52.000000000 +0200
+@@ -92,10 +92,10 @@
+ 
+ #define A_12 "-misc-fixed-medium-r-semicondensed--12-110-75-75-c-60-iso8859-1"
+ #define A_14 "-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1"
+-#define A_16 "-etl-fixed-medium-r-normal--16-160-72-72-c-80-iso8859-1"
++#define A_16 "-sony-fixed-medium-r-normal--16-150-75-75-c-80-iso8859-1"
+ #define A_18 "-misc-fixed-medium-r-normal--18-170-75-75-c-90-iso8859-1"
+ #define A_20 "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1"
+-#define A_24 "-etl-fixed-medium-r-normal--24-240-72-72-c-120-iso8859-1"
++#define A_24 "-sony-fixed-medium-r-normal--24-230-75-75-c-120-iso8859-1"
+ #define MFONT_LIST_NULL NULL, NULL, NULL, NULL, NULL, NULL, NULL
+ 
+ /* 
+@@ -138,11 +138,12 @@
+   "-isas-song ti-medium-r-normal--24-240-72-72-c-240-gb2312.1980-0",/*xf*/\
+   NULL, NULL, NULL
+ 
+-#define NFONT_LIST_BIG5 A_16, NULL, NULL, A_24, NULL, NULL, NULL
++#define NFONT_LIST_BIG5 A_16, NULL, NULL, A_20, A_24, NULL, NULL
+ #define MFONT_LIST_BIG5 \
+-  "-eten-fixed-medium-r-normal--16-150-75-75-c-160-big5-0",/*pd*/\
++  "-*-fixed-medium-r-normal--16-150-75-75-c-160-big5-0",/*pd*/\
+   NULL, NULL, \
+-  "-eten-fixed-medium-r-normal--24-230-75-75-c-240-big5-0",/*pd*/\
++  "-*-fixed-medium-r-normal--20-200-75-75-c-200-big5-0",/*pd*/\
++  "-*-fixed-medium-r-normal--24-230-75-75-c-240-big5-0",/*pd*/\
+   NULL, NULL, NULL
+ 
+ #define NFONT_LIST_EUCKR A_16, A_12, A_14, A_18, A_20, A_24, NULL

@@ -1,0 +1,27 @@
+diff -uNr rxvt-2.7.10/src/main.c rxvt-2.7.10-xim-fix/src/main.c
+--- rxvt-2.7.10/src/main.c	Thu Oct 24 10:52:33 2002
++++ rxvt-2.7.10-xim-fix/src/main.c	Sun Jan 30 20:58:09 2005
+@@ -1396,6 +1396,7 @@
+     XVaNestedList   preedit_attr, status_attr;
+     XIMCallback     ximcallback;
+     struct rxvt_hidden *h = r->h;
++    long im_event_mask = 0;
+ 
+     D_MAIN((stderr, "rxvt_IM_get_IC()"));
+     xim = XOpenIM(r->Xdisplay, NULL, NULL, NULL);
+@@ -1494,6 +1495,15 @@
+     }
+     if (h->input_style & XIMPreeditArea)
+ 	rxvt_IMSetStatusPosition(r);
++
++    XGetICValues(h->Input_Context, XNFilterEvents, &im_event_mask, NULL);
++    im_event_mask |= (KeyPressMask | StructureNotifyMask | ExposureMask 
++#if defined(MOUSE_WHEEL) && defined(MOUSE_SLIP_WHEELING)
++           | KeyReleaseMask
++#endif
++           | FocusChangeMask | VisibilityChangeMask);
++    XSelectInput(r->Xdisplay, r->TermWin.parent[0], im_event_mask);
++
+     D_MAIN((stderr, "rxvt_IM_get_IC() - successful connection"));
+     return True;
+ }

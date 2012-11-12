@@ -1,0 +1,12 @@
+diff -rup rxvt.2.7.8.orig/src/feature.h rxvt-2.7.8/src/feature.h
+--- rxvt.2.7.8.orig/src/feature.h	2001-11-29 07:38:07.000000000 +0100
++++ rxvt-2.7.8/src/feature.h	2002-10-10 15:49:08.000000000 +0200
+@@ -421,7 +421,7 @@
+ /*
+  * Default number of lines in the scrollback buffer
+  */
+-#define SAVELINES	64
++#define SAVELINES	256
+ 
+ /*
+  * Provide termcap/terminfo bw support
