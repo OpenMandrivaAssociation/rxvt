@@ -2,7 +2,7 @@ Summary:	A color VT102 terminal emulator for the X Window System
 Name:		rxvt
 Epoch:		3
 Version:	2.7.10
-Release: 	%mkrel 24
+Release: 	%mkrel 25
 License:	GPLv2
 Group:		Terminals
 
@@ -92,30 +92,30 @@ cp src/rxvt src/rxvt.cjk
 cp src/rxvt src/rxvt.bin
 
 %install
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %makeinstall_std
-mkdir -p %{buildroot}/etc/X11/app-defaults
+mkdir -p $RPM_BUILD_ROOT/etc/X11/app-defaults
 touch src/rxvt
 for i in cjk bin;do
-	install -m755 src/rxvt.$i %{buildroot}/usr/bin
+	install -m755 src/rxvt.$i $RPM_BUILD_ROOT/usr/bin
 done
-rm -f %{buildroot}/usr/bin/rxvt
-rm -f %{buildroot}/usr/bin/rxvt-%{version}
+rm -f $RPM_BUILD_ROOT/usr/bin/rxvt
+rm -f $RPM_BUILD_ROOT/usr/bin/rxvt-%{version}
 
-install -m 755 %{SOURCE1} %{buildroot}/usr/bin
+install -m 755 %{SOURCE1} $RPM_BUILD_ROOT/usr/bin
 
 # (fg) 20000925 Make the necessary links
-( cd %{buildroot}/usr/bin;
+( cd $RPM_BUILD_ROOT/usr/bin;
   for i in {gb,c,j,k}rxvt; do
 		ln rxvt.sh $i
   done
   ln -s rxvt.sh rxvt
 )
 
-mkdir -p %{buildroot}/%{_sysconfdir}/rxvt
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/rxvt
 
-mkdir -p %{buildroot}%{_datadir}/applications/
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-rxvt.desktop
 [Desktop Entry]
 Type=Application
@@ -167,12 +167,12 @@ Icon=rxvt-CJK
 EOF
 
 # (fg) 20000929 New icons from ln
-mkdir -p %{buildroot}/%{_iconsdir}/{large,mini}
+mkdir -p $RPM_BUILD_ROOT/%{_iconsdir}/{large,mini}
 for i in CLE CJK; do
-install -m644 %{SOURCE3} %{buildroot}/%{_miconsdir}/rxvt-$i.png
+install -m644 %{SOURCE3} $RPM_BUILD_ROOT/%{_miconsdir}/rxvt-$i.png
 
-install -m644 %{SOURCE4} %{buildroot}/%{_iconsdir}/rxvt-$i.png
-install -m644 %{SOURCE5} %{buildroot}/%{_liconsdir}/rxvt-$i.png
+install -m644 %{SOURCE4} $RPM_BUILD_ROOT/%{_iconsdir}/rxvt-$i.png
+install -m644 %{SOURCE5} $RPM_BUILD_ROOT/%{_liconsdir}/rxvt-$i.png
 done
 
 chmod -x doc/menu/*
@@ -203,7 +203,7 @@ fi
 %endif
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
@@ -231,4 +231,106 @@ rm -rf %{buildroot}
 %{_liconsdir}/rxvt-CJK.png
 %{_miconsdir}/rxvt-CJK.png
 
+
+
+
+%changelog
+* Thu May 05 2011 Oden Eriksson <oeriksson@mandriva.com> 3:2.7.10-24mdv2011.0
++ Revision: 669467
+- mass rebuild
+
+* Wed Dec 01 2010 Paulo Ricardo Zanoni <pzanoni@mandriva.com> 3:2.7.10-23mdv2011.0
++ Revision: 604512
+- Update URL
+- Remove useless X11-devel BR
+
+* Wed Mar 17 2010 Oden Eriksson <oeriksson@mandriva.com> 3:2.7.10-22mdv2010.1
++ Revision: 523940
+- rebuilt for 2010.1
+
+* Fri Oct 09 2009 Olivier Blin <oblin@mandriva.com> 3:2.7.10-21mdv2010.0
++ Revision: 456350
+- buildrequire libx11-common to fix build with xim (#54432)
+
+* Thu Sep 03 2009 Christophe Fergeau <cfergeau@mandriva.com> 3:2.7.10-20mdv2010.0
++ Revision: 426970
+- rebuild
+
+  + Rémy Clouard <shikamaru@mandriva.org>
+    - fix Obsoletes
+    - fix provides/obsoletes
+    - fix configure (use 2_5x)
+    - fix license
+    - fix desktop file
+    - clean spec
+
+* Mon Nov 10 2008 Oden Eriksson <oeriksson@mandriva.com> 3:2.7.10-18mdv2009.1
++ Revision: 301745
+- rebuild
+
+* Fri Aug 01 2008 Oden Eriksson <oeriksson@mandriva.com> 3:2.7.10-17mdv2009.0
++ Revision: 260002
+- fix deps
+- rebuild
+- sync patches with gentoo
+
+* Thu Jun 12 2008 Pixel <pixel@mandriva.com> 3:2.7.10-16mdv2009.0
++ Revision: 218436
+- rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Wed Dec 19 2007 Thierry Vignaud <tv@mandriva.org> 3:2.7.10-16mdv2008.1
++ Revision: 134673
+- auto-convert XDG menu entry
+- kill re-definition of %%buildroot on Pixel's request
+- buildrequires X11-devel instead of XFree86-devel
+
+
+* Thu Dec 21 2006 Thierry Vignaud <tvignaud@mandriva.com> 2.7.10-16mdv2007.0
++ Revision: 101041
+- fix startup now that binary has moved
+
+* Wed Dec 20 2006 Thierry Vignaud <tvignaud@mandriva.com> 3:2.7.10-15mdv2007.1
++ Revision: 100845
+- Import rxvt
+
+* Wed Dec 20 2006 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-15mdv2007.1
+- do not install in /usr/X11R6 (#24759)
+- simplify a little the spec file (more to do)
+- use %%{1}mdv2007.1
+
+* Sun Jan 01 2006 Mandriva Linux Team <http://www.mandrivaexpert.com/> 2.7.10-14mdk
+- Rebuild
+
+* Mon Jan 31 2005 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-13mdk
+- patch 3: fix IM support (thus enabling SCIM support in rxvt)
+
+* Fri Sep 24 2004 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-12mdk
+- source 1: use SCIM for CJK by default (UTUMI Hirosi)
+
+* Sat Aug 21 2004 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-11mdk
+- enable various kinds of scrollbars (#10534)
+- fix typo in menu entry
+
+* Thu Jun 10 2004 Rafael Garcia-Suarez <rgarciasuarez@mandrakesoft.com> 2.7.10-10mdk
+- Remove the --enable-xgetdefault configure flag
+
+* Sun Feb 08 2004 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-9mdk
+- fix CJK description
+
+* Mon Jan 19 2004 Abel Cheung <deaddog@deaddog.org> 2.7.10-8mdk
+- Requires with epoch
+
+* Sun Jan 18 2004 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-7mdk
+- readd back rxvt menu entry now that mcc does not force rxvt installation
+  anymore
+
+* Thu Jan 15 2004 Thierry Vignaud <tvignaud@mandrakesoft.com> 2.7.10-6mdk
+- update source 1 : fix script (#6867, Olivier Blin)
+
+* Fri Jan 09 2004 Pablo Saratxaga <pablo@mandrakesoft.com> 2.7.10-5mdk
+- Changed wrapper script to avoid overwritten values defined trough
+  X11 ressources (bug #180)
 
