@@ -1,3 +1,5 @@
+%define _disable_lto 1
+
 Summary:	A color VT102 terminal emulator for the X Window System
 Name:		rxvt
 Epoch:		3
@@ -32,7 +34,7 @@ Obsoletes:	crxvt <= 2.7.10, gbrxvt <= 2.7.10
 Obsoletes:	rxvt-CLE <= 2.7.10
 Provides:	crxvt = %{version}-%{release}, gbrxvt = %{version}-%{release}
 Provides:	rxvt-CLE = %{version}-%{release}
-BuildRequires:	xpm-devel utempter-devel lesstif-devel
+BuildRequires:	xpm-devel utempter-devel motif-devel
 # X11 locales are required to build IM support
 BuildRequires:	libx11-common
 Conflicts:	drakconf < 9.3-25mdk
