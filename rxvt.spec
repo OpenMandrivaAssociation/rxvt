@@ -28,13 +28,13 @@ Patch6:		rxvt-2.7.10-line-scroll.patch
 Patch7:		rxvt-2.7.10-rk.patch
 Patch8:		rxvt-2.7.10-CVE-2008-1142-DISPLAY.patch
 
-Buildroot:	%{_tmppath}/%name-%{version}-%{release}-root
 URL:		http://rxvt.sourceforge.net/
 Obsoletes:	crxvt <= 2.7.10, gbrxvt <= 2.7.10
 Obsoletes:	rxvt-CLE <= 2.7.10
 Provides:	crxvt = %{version}-%{release}, gbrxvt = %{version}-%{release}
 Provides:	rxvt-CLE = %{version}-%{release}
 BuildRequires:	xpm-devel utempter-devel motif-devel
+BuildRequires:	pkgconfig(xt)
 # X11 locales are required to build IM support
 BuildRequires:	libx11-common
 Conflicts:	drakconf < 9.3-25mdk
