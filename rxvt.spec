@@ -28,7 +28,7 @@ Patch6:		rxvt-2.7.10-line-scroll.patch
 Patch7:		rxvt-2.7.10-rk.patch
 Patch8:		rxvt-2.7.10-CVE-2008-1142-DISPLAY.patch
 
-URL:		http://rxvt.sourceforge.net/
+URL:		https://rxvt.sourceforge.net/
 Obsoletes:	crxvt <= 2.7.10, gbrxvt <= 2.7.10
 Obsoletes:	rxvt-CLE <= 2.7.10
 Provides:	crxvt = %{version}-%{release}, gbrxvt = %{version}-%{release}
